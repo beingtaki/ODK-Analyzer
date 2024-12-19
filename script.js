@@ -14,7 +14,7 @@ let selectedDate = null;
 const fp = flatpickr(dateInput, {
     dateFormat: "Y-m-d",
     onClose: function(selectedDates, dateStr, instance) {
-        handleDateChange(dateStr)
+        handleDateChange(dateStr);
     }
 });
 
@@ -37,8 +37,8 @@ nextBtn.addEventListener('click', () => {
 function changeDate(days) {
     const currentDate = new Date(dateInput.value);
     currentDate.setDate(currentDate.getDate() + days);
-    const formattedDate = formatDate(currentDate)
-    dateInput.value = formattedDate;
+    const formattedDate = formatDate(currentDate);
+     fp.setDate(formattedDate);
      handleDateChange(formattedDate);
 }
 
@@ -85,8 +85,9 @@ async function handleFileSelect(event) {
     }
     downloadReportButton.disabled = true;
     selectedDate = null;
-      dateInput.value = formatDate(new Date());
-      handleDateChange(formatDate(new Date()));
+     const formattedDate = formatDate(new Date());
+     dateInput.value = formattedDate;
+    handleDateChange(formattedDate);
 
     try {
         logMessage("Loading zip file...", false);
@@ -102,8 +103,8 @@ async function handleFileSelect(event) {
 
         const latestDate = findLatestDate(allExtractedData)
         if(latestDate) {
-            dateInput.value = latestDate;
-          handleDateChange(latestDate);
+           fp.setDate(latestDate)
+           handleDateChange(latestDate);
           }
 
 
